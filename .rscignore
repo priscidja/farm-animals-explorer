@@ -1,0 +1,16 @@
+.git
+.github
+.Rhistory
+.Rproj.user
+.DS_Store
+README.md
+farm-animals-explorer.Rproj
+data-raw
+errors
+data/genome data
+data/Livestock_genomics.docx
+data/use of these animals in science.docx
+scripts/Phylogeny tree.R
+scripts/build_genome_summary_from_ncbi_table.R
+scripts/deploy_shinyapps_io.R
+scripts/genome_composition.R

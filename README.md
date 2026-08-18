@@ -84,12 +84,23 @@ Because the raw genome folder is ignored, the commit should stay lightweight and
 
 ## Deployment
 
-This app is best deployed to a Shiny host such as:
+As of August 18, 2026, Posit Cloud itself is not the place to publish Shiny apps. For cloud hosting, the Posit route is `Posit Connect Cloud`.
 
-- `shinyapps.io`
-- Posit Connect
+This project is prepared for two deployment paths:
 
-A helper script is included for `shinyapps.io` deployment:
+- `Posit Connect Cloud` using `manifest.json`
+- `shinyapps.io` using `rsconnect`
+
+To refresh the Connect Cloud manifest after content changes:
+
+```r
+source("scripts/write_connect_cloud_manifest.R")
+write_connect_cloud_manifest()
+```
+
+That updates `manifest.json` using only the runtime app files, so the large raw genome folder is excluded from the deployment bundle.
+
+For `shinyapps.io`, a helper script is included:
 
 ```r
 source("scripts/deploy_shinyapps_io.R")
