@@ -2049,28 +2049,6 @@ server <- function(input, output, session) {
             )
           )
         )
-      ),
-      tabPanel(
-        title = tr(lang, "tab_workflow"),
-        value = "workflow",
-        div(
-          class = "workflow-panel",
-          tags$h3(class = "panel-title", tr(lang, "workflow_heading")),
-          tags$ol(
-            tags$li(tr(lang, "workflow_step_1")),
-            tags$li(tr(lang, "workflow_step_2")),
-            tags$li(tr(lang, "workflow_step_3")),
-            tags$li(tr(lang, "workflow_step_4"))
-          ),
-          tags$h3(class = "panel-title", tr(lang, "useful_commands")),
-          tags$pre(tags$code(build_guide_code(lang))),
-          tags$h3(class = "panel-title", tr(lang, "github_workflow")),
-          tags$ol(
-            tags$li(tr(lang, "github_step_1")),
-            tags$li(tr(lang, "github_step_2")),
-            tags$li(tr(lang, "github_step_3"))
-          )
-        )
       )
     )
   })
