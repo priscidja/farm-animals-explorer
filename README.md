@@ -100,6 +100,8 @@ write_connect_cloud_manifest()
 
 That updates `manifest.json` using only the runtime app files, so the large raw genome folder is excluded from the deployment bundle.
 
+The helper also keeps the manifest R version aligned with the currently supported Connect Cloud R range when your local R is newer.
+
 For `shinyapps.io`, a helper script is included:
 
 ```r

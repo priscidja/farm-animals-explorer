@@ -35,5 +35,17 @@ write_connect_cloud_manifest <- function(app_dir = ".") {
     appFiles = app_files
   )
 
+  manifest_path <- file.path(normalized_app_dir, "manifest.json")
+  if (file.exists(manifest_path) && requireNamespace("jsonlite", quietly = TRUE)) {
+    manifest <- jsonlite::fromJSON(manifest_path, simplifyVector = FALSE)
+    if (!is.null(manifest$platform) && utils::compareVersion(manifest$platform, "4.6.0") > 0) {
+      manifest$platform <- "4.6.0"
+      writeLines(
+        jsonlite::toJSON(manifest, auto_unbox = TRUE, pretty = TRUE, null = "null"),
+        manifest_path
+      )
+    }
+  }
+
   invisible(app_files)
 }
