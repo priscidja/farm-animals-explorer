@@ -17,7 +17,7 @@ The app is designed so that most teaching content lives in small CSV files. That
 - `app.R`: main Shiny app
 - `R/data_access.R`: data loading and validation helpers
 - `data/`: tracked app data used at runtime
-- `data-raw/`: local raw inputs that stay out of Git
+- `data-raw/`: local raw inputs and source documents that stay out of Git
 - `figs/`: app figures and species illustrations
 - `scripts/`: helper scripts for genome summaries, plots, quiz content, and deployment
 - `www/styles.css`: custom app styling
@@ -40,6 +40,8 @@ install.packages(c("shiny", "plotly"))
 
 The repository tracks only lightweight teaching assets and summary tables.
 
+At runtime, the app only needs the eight CSV files stored in `data/`.
+
 Tracked in Git:
 
 - `data/species_profiles.csv`
@@ -54,8 +56,7 @@ Tracked in Git:
 
 Ignored from Git:
 
-- `data/genome data/` raw NCBI downloads
-- `data-raw/` temporary raw exports except its README
+- `data-raw/` raw NCBI downloads, table exports, and source documents except its README
 - local error screenshots
 - R session files and macOS metadata
 

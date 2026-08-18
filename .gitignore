@@ -5,7 +5,6 @@
 .DS_Store
 errors/
 rsconnect/
-data/genome data/
 data-raw/*
 !data-raw/README.md
 *.zip
