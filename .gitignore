@@ -1,0 +1,20 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+errors/
+rsconnect/
+data/genome data/
+data-raw/*
+!data-raw/README.md
+*.zip
+*.gz
+*.fa
+*.fasta
+*.fna
+*.gbff
+*.gff
+*.gtf
+*.jsonl
+ncbi_dataset/
