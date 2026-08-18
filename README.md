@@ -96,15 +96,18 @@ source("scripts/deploy_shinyapps_io.R")
 deploy_farm_animals_explorer()
 ```
 
-Before deploying, make sure `rsconnect` is installed and your account is configured:
+Before deploying, make sure `rsconnect` is installed:
 
 ```r
 install.packages("rsconnect")
-rsconnect::setAccountInfo(
-  name = "YOUR_ACCOUNT_NAME",
-  token = "YOUR_TOKEN",
-  secret = "YOUR_SECRET"
-)
+```
+
+Then set your account credentials as environment variables in the terminal before starting R:
+
+```bash
+export SHINYAPPS_NAME="YOUR_ACCOUNT_NAME"
+export SHINYAPPS_TOKEN="YOUR_TOKEN"
+export SHINYAPPS_SECRET="YOUR_SECRET"
 ```
 
 Then run:
