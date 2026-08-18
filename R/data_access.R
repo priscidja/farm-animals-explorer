@@ -66,7 +66,14 @@ coalesce_text <- function(primary, fallback) {
 }
 
 load_species_profiles <- function(path) {
-  data <- read.csv(path, stringsAsFactors = FALSE, check.names = FALSE, row.names = NULL)
+
+  data <- read.csv(
+    path,
+    sep = ";",
+    stringsAsFactors = FALSE,
+    check.names = FALSE,
+    row.names = NULL
+  )
 
   assert_columns(
     data,
