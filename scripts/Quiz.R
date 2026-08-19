@@ -1,5 +1,17 @@
 library(shiny)
 
+# Shared global leaderboard (persists in memory while app session is active)
+global_leaderboard <- reactiveVal(
+  data.frame(
+    Name = character(0),
+    Score = character(0),
+    Percentage = character(0),
+    Language = character(0),
+    Timestamp = character(0),
+    stringsAsFactors = FALSE
+  )
+)
+
 quiz_data_by_lang <- list(
   en = list(
     list(
@@ -288,7 +300,11 @@ quiz_labels <- list(
     correct = "Correct",
     incorrect = "Incorrect",
     correct_answer = "Correct answer",
-    finished = "You have reached the end of the quiz. You can review any question or restart."
+    finished = "You have reached the end of the quiz! Save your score below:",
+    name_prompt = "Enter your name or student ID:",
+    save_score = "Save Score to Leaderboard",
+    leaderboard_title = "Class Leaderboard & Quiz Results",
+    score_saved = "Your score has been registered!"
   ),
   es = list(
     badge = "Repaso guiado",
@@ -304,7 +320,11 @@ quiz_labels <- list(
     correct = "Correcto",
     incorrect = "Incorrecto",
     correct_answer = "Respuesta correcta",
-    finished = "Llegaste al final del cuestionario. Puedes revisar cualquier pregunta o reiniciarlo."
+    finished = "¡Llegaste al final del cuestionario! Registra tu puntaje abajo:",
+    name_prompt = "Ingresa tu nombre o ID de estudiante:",
+    save_score = "Guardar Puntaje en la Tabla",
+    leaderboard_title = "Tabla de Posiciones y Resultados",
+    score_saved = "¡Tu puntaje ha sido registrado!"
   ),
   pt = list(
     badge = "Revisao guiada",
@@ -320,27 +340,23 @@ quiz_labels <- list(
     correct = "Correto",
     incorrect = "Incorreto",
     correct_answer = "Resposta correta",
-    finished = "Voce chegou ao fim do quiz. Pode revisar qualquer pergunta ou reiniciar."
+    finished = "Voce chegou ao fim do quiz! Registre sua pontuacao abaixo:",
+    name_prompt = "Digite seu nome ou ID de estudante:",
+    save_score = "Salvar Pontuacao no Ranking",
+    leaderboard_title = "Classificacao e Resultados do Quiz",
+    score_saved = "Sua pontuacao foi registrada!"
   )
 )
 
 quiz_label <- function(lang, key) {
   lang_values <- quiz_labels[[lang]]
-
-  if (is.null(lang_values) || is.null(lang_values[[key]])) {
-    return(quiz_labels$en[[key]])
-  }
-
+  if (is.null(lang_values) || is.null(lang_values[[key]])) return(quiz_labels$en[[key]])
   lang_values[[key]]
 }
 
 quiz_questions <- function(lang) {
   lang_questions <- quiz_data_by_lang[[lang]]
-
-  if (is.null(lang_questions)) {
-    return(quiz_data_by_lang$en)
-  }
-
+  if (is.null(lang_questions)) return(quiz_data_by_lang$en)
   lang_questions
 }
 
@@ -367,7 +383,10 @@ quizUI <- function(id) {
     uiOutput(ns("options_ui")),
     uiOutput(ns("feedback_ui")),
     div(class = "quiz-hint", textOutput(ns("hint_text"), container = tags$span)),
+    
+    # Registration Box when Quiz is Completed
     uiOutput(ns("completion_note")),
+    
     div(
       class = "quiz-nav",
       div(
@@ -380,6 +399,15 @@ quizUI <- function(id) {
         actionButton(ns("restart_btn"), label = NULL, icon = icon("refresh"), class = "btn btn-default quiz-btn quiz-btn-secondary"),
         actionButton(ns("submit_btn"), label = NULL, icon = icon("check"), class = "btn btn-primary quiz-btn quiz-btn-primary")
       )
+    ),
+    
+    tags$hr(),
+    
+    # Live Leaderboard Table Display
+    div(
+      class = "quiz-leaderboard-section",
+      tags$h3(textOutput(ns("leaderboard_title"))),
+      tableOutput(ns("leaderboard_table"))
     )
   )
 }
@@ -389,14 +417,10 @@ quizServer <- function(id, language = reactive("en")) {
     current_q <- reactiveVal(1)
     user_answers <- reactiveValues()
     submitted <- reactiveValues()
+    score_submitted <- reactiveVal(FALSE)
 
-    question_set <- reactive({
-      quiz_questions(language())
-    })
-
-    question_count <- reactive({
-      length(question_set())
-    })
+    question_set <- reactive({ quiz_questions(language()) })
+    question_count <- reactive({ length(question_set()) })
 
     observe({
       if (question_count() == 0) {
@@ -408,63 +432,39 @@ quizServer <- function(id, language = reactive("en")) {
 
     current_question <- reactive({
       questions <- question_set()
-
-      if (length(questions) == 0) {
-        return(NULL)
-      }
-
+      if (length(questions) == 0) return(NULL)
       questions[[current_q()]]
     })
 
     quiz_score <- reactive({
       questions <- question_set()
-
-      if (length(questions) == 0) {
-        return(list(correct = 0L, total = 0L))
-      }
+      if (length(questions) == 0) return(list(correct = 0L, total = 0L))
 
       total_correct <- 0L
-
       for (question in questions) {
         key <- paste0("q_", question$id)
         selected <- user_answers[[key]]
-
         if (!is.null(selected) && identical(selected, question$answer)) {
           total_correct <- total_correct + 1L
         }
       }
-
       list(correct = total_correct, total = length(questions))
     })
 
-    output$badge_text <- renderText({
-      quiz_label(language(), "badge")
-    })
-
+    output$badge_text <- renderText({ quiz_label(language(), "badge") })
     output$score_text <- renderText({
       score <- quiz_score()
       sprintf(quiz_label(language(), "score"), score$correct, score$total)
     })
-
     output$progress_text <- renderText({
       sprintf(quiz_label(language(), "progress"), current_q(), max(question_count(), 1))
     })
-
-    output$question_label <- renderText({
-      quiz_label(language(), "question_label")
-    })
-
-    output$hint_text <- renderText({
-      quiz_label(language(), "hint")
-    })
+    output$question_label <- renderText({ quiz_label(language(), "question_label") })
+    output$hint_text <- renderText({ quiz_label(language(), "hint") })
+    output$leaderboard_title <- renderText({ quiz_label(language(), "leaderboard_title") })
 
     output$progress_bar <- renderUI({
-      progress_width <- if (question_count() == 0) {
-        0
-      } else {
-        round(current_q() / question_count() * 100)
-      }
-
+      progress_width <- if (question_count() == 0) 0 else round(current_q() / question_count() * 100)
       div(
         class = "quiz-progress-bar",
         div(class = "quiz-progress-fill", style = sprintf("width:%s%%;", progress_width))
@@ -474,14 +474,12 @@ quizServer <- function(id, language = reactive("en")) {
     output$question_ui <- renderUI({
       question <- current_question()
       req(question)
-
       tags$h3(class = "quiz-question", question$question)
     })
 
     output$options_ui <- renderUI({
       question <- current_question()
       req(question)
-
       key <- paste0("q_", question$id)
       selected_value <- user_answers[[key]]
 
@@ -499,7 +497,6 @@ quizServer <- function(id, language = reactive("en")) {
     observeEvent(input$user_choice, {
       question <- current_question()
       req(question)
-
       key <- paste0("q_", question$id)
       user_answers[[key]] <- input$user_choice
       submitted[[key]] <- FALSE
@@ -508,7 +505,6 @@ quizServer <- function(id, language = reactive("en")) {
     observeEvent(input$submit_btn, {
       question <- current_question()
       req(question)
-
       key <- paste0("q_", question$id)
       submitted[[key]] <- TRUE
     }, ignoreInit = TRUE)
@@ -516,78 +512,89 @@ quizServer <- function(id, language = reactive("en")) {
     output$feedback_ui <- renderUI({
       question <- current_question()
       req(question)
-
       key <- paste0("q_", question$id)
 
-      if (!isTRUE(submitted[[key]])) {
-        return(NULL)
-      }
+      if (!isTRUE(submitted[[key]])) return(NULL)
 
       selected_value <- user_answers[[key]]
-
       if (is.null(selected_value) || !nzchar(selected_value)) {
-        return(
-          div(
-            class = "quiz-feedback quiz-feedback-warning",
-            tags$strong(quiz_label(language(), "choose_first"))
-          )
-        )
+        return(div(class = "quiz-feedback quiz-feedback-warning", tags$strong(quiz_label(language(), "choose_first"))))
       }
 
       if (identical(selected_value, question$answer)) {
-        return(
-          div(
-            class = "quiz-feedback quiz-feedback-success",
-            tags$h4(quiz_label(language(), "correct")),
-            tags$p(question$explanation)
-          )
-        )
+        return(div(class = "quiz-feedback quiz-feedback-success", tags$h4(quiz_label(language(), "correct")), tags$p(question$explanation)))
       }
 
       correct_label <- unname(question$options[[question$answer]])
-
       div(
         class = "quiz-feedback quiz-feedback-error",
         tags$h4(quiz_label(language(), "incorrect")),
-        tags$p(
-          tags$strong(paste0(quiz_label(language(), "correct_answer"), ": ")),
-          correct_label
-        ),
+        tags$p(tags$strong(paste0(quiz_label(language(), "correct_answer"), ": ")), correct_label),
         tags$p(question$explanation)
       )
     })
 
+    # Registration Form UI rendered at end of quiz
     output$completion_note <- renderUI({
-      if (current_q() < question_count()) {
-        return(NULL)
+      if (current_q() < question_count()) return(NULL)
+
+      if (isTRUE(score_submitted())) {
+        return(div(class = "quiz-feedback quiz-feedback-success", tags$strong(quiz_label(language(), "score_saved"))))
       }
 
-      div(class = "quiz-completion-note", quiz_label(language(), "finished"))
+      div(
+        class = "quiz-completion-box",
+        tags$p(quiz_label(language(), "finished")),
+        textInput(session$ns("student_name"), label = quiz_label(language(), "name_prompt"), placeholder = "e.g., Alex Smith"),
+        actionButton(session$ns("save_score_btn"), label = quiz_label(language(), "save_score"), class = "btn btn-success")
+      )
     })
 
-    outputOptions(output, "completion_note", suspendWhenHidden = FALSE)
+    # Register score to global leaderboard
+    observeEvent(input$save_score_btn, {
+      req(input$student_name)
+      if (!nzchar(trimws(input$student_name))) return(NULL)
+
+      score <- quiz_score()
+      pct <- sprintf("%.0f%%", (score$correct / max(score$total, 1)) * 100)
+
+      new_entry <- data.frame(
+        Name = trimws(input$student_name),
+        Score = sprintf("%s/%s", score$correct, score$total),
+        Percentage = pct,
+        Language = toupper(language()),
+        Timestamp = format(Sys.time(), "%Y-%m-%d %H:%M"),
+        stringsAsFactors = FALSE
+      )
+
+      current_board <- global_leaderboard()
+      updated_board <- rbind(new_entry, current_board)
+      global_leaderboard(updated_board)
+
+      score_submitted(TRUE)
+    })
+
+    # Render Leaderboard Table
+    output$leaderboard_table <- renderTable({
+      global_leaderboard()
+    }, striped = TRUE, hover = TRUE, spacing = "s")
 
     observeEvent(input$next_btn, {
-      if (current_q() < question_count()) {
-        current_q(current_q() + 1L)
-      }
+      if (current_q() < question_count()) current_q(current_q() + 1L)
     }, ignoreInit = TRUE)
 
     observeEvent(input$prev_btn, {
-      if (current_q() > 1L) {
-        current_q(current_q() - 1L)
-      }
+      if (current_q() > 1L) current_q(current_q() - 1L)
     }, ignoreInit = TRUE)
 
     observeEvent(input$restart_btn, {
       questions <- question_set()
-
       for (question in questions) {
         key <- paste0("q_", question$id)
         user_answers[[key]] <- NULL
         submitted[[key]] <- NULL
       }
-
+      score_submitted(FALSE)
       current_q(1L)
     }, ignoreInit = TRUE)
 
