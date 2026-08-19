@@ -22,6 +22,73 @@ quiz_data_by_lang <- list(
       options = c(rumen = "Rumen", reticulum = "Reticulum", omasum = "Omasum", abomasum = "Abomasum"),
       answer = "abomasum",
       explanation = "The abomasum secretes digestive enzymes and hydrochloric acid, making it the glandular stomach most comparable to our own."
+    ),
+    list(
+      id = "rumen_fermentation",
+      question = "Which compartment is the main site of microbial fermentation in ruminants?",
+      options = c(abomasum = "Abomasum", rumen = "Rumen", omasum = "Omasum", small_intestine = "Small intestine"),
+      answer = "rumen",
+      explanation = "The rumen houses billions of symbiotic microbes that break down complex plant carbohydrates like cellulose through fermentation."
+    ),
+    list(
+      id = "pig_digestion",
+      question = "Which statement best distinguishes the pig digestive system from the ruminant digestive system?",
+      options = c(
+        four_stomachs = "Pigs have four specialized stomach compartments.",
+        rumen_fiber = "Pigs rely primarily on rumen microorganisms to digest fiber.",
+        monogastric = "Pigs have a single-chambered stomach and rely largely on enzymatic digestion.",
+        large_intestine = "Pigs absorb most nutrients in the large intestine."
+      ),
+      answer = "monogastric",
+      explanation = "As monogastric non-ruminants, pigs digest food using gastric acid and digestive enzymes in a single-chambered stomach."
+    ),
+    list(
+      id = "abomasum_function",
+      question = "What is the main function of the abomasum?",
+      options = c(
+        fermentation = "Microbial fermentation of plant fiber",
+        water_abs = "Absorption of water and minerals",
+        enzyme_sec = "Secretion of gastric acid and enzymes for protein digestion",
+        regurgitation = "Regurgitation of feed back to the mouth"
+      ),
+      answer = "enzyme_sec",
+      explanation = "The abomasum functions as the glandular stomach where acid and pepsin break down proteins and microbes passed from upstream."
+    ),
+    list(
+      id = "pig_biomedical",
+      question = "Which feature makes pigs particularly useful for xenotransplantation research?",
+      options = c(
+        similar_organs = "Their organs have anatomical and physiological similarities to human organs.",
+        human_abs = "They naturally produce fully human antibodies.",
+        four_chamber = "Their four-chambered stomach resembles the human digestive system.",
+        small_brain = "Their brain is considerably smaller than that of other laboratory animals."
+      ),
+      answer = "similar_organs",
+      explanation = "Porcine organs (such as hearts and kidneys) closely match human organs in size, structure, and physiological function."
+    ),
+    list(
+      id = "sheep_biomedical",
+      question = "Why are sheep useful models for prenatal and maternal medicine?",
+      options = c(
+        short_gestation = "They have an unusually short gestation period.",
+        fetal_phys = "Their fetal development and physiology allow studies of pregnancy and premature-infant interventions.",
+        monogastric_model = "They are monogastric and therefore closely resemble human digestion.",
+        polyclonal_abs = "They produce large quantities of polyclonal antibodies."
+      ),
+      answer = "fetal_phys",
+      explanation = "Fetal sheep physiology allows researchers to perform safe in utero surgical procedures and model human respiratory development."
+    ),
+    list(
+      id = "goat_biomedical",
+      question = "Which characteristic makes goats particularly useful for biopharming?",
+      options = c(
+        rumen_proteins = "Their rumen produces therapeutic proteins during fermentation.",
+        milk_proteins = "Their milk can be used to produce recombinant therapeutic proteins.",
+        brain_anatomy = "Their brain anatomy closely resembles the human brain.",
+        gi_antibodies = "Their gastrointestinal tract allows direct production of human antibodies."
+      ),
+      answer = "milk_proteins",
+      explanation = "Transgenic goats can secrete human therapeutic proteins (such as antithrombin) directly into their milk at high yields."
     )
   ),
   es = list(
@@ -45,6 +112,73 @@ quiz_data_by_lang <- list(
       options = c(rumen = "Rumen", reticulum = "Reticulo", omasum = "Omaso", abomasum = "Abomaso"),
       answer = "abomasum",
       explanation = "El abomaso secreta enzimas digestivas y acido clorhidrico, por lo que es el estomago glandular mas comparable al humano."
+    ),
+    list(
+      id = "rumen_fermentation",
+      question = "Cual compartimento es el sitio principal de fermentacion microbiana en rumiantes?",
+      options = c(abomasum = "Abomaso", rumen = "Rumen", omasum = "Omaso", small_intestine = "Intestino delgado"),
+      answer = "rumen",
+      explanation = "El rumen alberga miles de millones de microbios simbioticos que descomponen carbohidratos complejos como la celulosa mediante fermentacion."
+    ),
+    list(
+      id = "pig_digestion",
+      question = "Que afirmacion distingue mejor el sistema digestivo del cerdo del sistema digestivo rumiante?",
+      options = c(
+        four_stomachs = "Los cerdos tienen cuatro compartimentos estomacales especializados.",
+        rumen_fiber = "Los cerdos dependen principalmente de los microorganismos del rumen para digerir fibra.",
+        monogastric = "Los cerdos tienen un estomago de una sola camara y dependen principalmente de la digestion enzimatica.",
+        large_intestine = "Los cerdos absorben la mayoria de los nutrientes en el intestino grueso."
+      ),
+      answer = "monogastric",
+      explanation = "Como monogastricos no rumiantes, los cerdos digieren los alimentos usando acido gastrico y enzimas digestivas en un estomago simple."
+    ),
+    list(
+      id = "abomasum_function",
+      question = "Cual es la funcion principal del abomaso?",
+      options = c(
+        fermentation = "Fermentacion microbiana de la fibra vegetal",
+        water_abs = "Absorcion de agua y minerales",
+        enzyme_sec = "Secrecion de acido gastrico y enzimas para la digestion de proteinas",
+        regurgitation = "Regurgitacion del alimento de vuelta a la boca"
+      ),
+      answer = "enzyme_sec",
+      explanation = "El abomaso funciona como el estomago glandular donde el acido y la pepsina descomponen proteinas y microbios provenientes del rumen."
+    ),
+    list(
+      id = "pig_biomedical",
+      question = "Que caracteristica hace que los cerdos sean particularmente utiles en investigaciones de xenotrasplantes?",
+      options = c(
+        similar_organs = "Sus organos tienen similitudes anatomicas y fisiologicas con los organos humanos.",
+        human_abs = "Producen de forma natural anticuerpos completamente humanos.",
+        four_chamber = "Su estomago de cuatro camaras se asemeja al sistema digestivo humano.",
+        small_brain = "Su cerebro es considerablemente mas pequeno que el de otros animales de laboratorio."
+      ),
+      answer = "similar_organs",
+      explanation = "Los organos porcinos (como corazones y rinones) coinciden estrechamente con los humanos en tamano, estructura y funcion fisiologica."
+    ),
+    list(
+      id = "sheep_biomedical",
+      question = "Por que las ovejas son modelos utiles para la medicina prenatal y materna?",
+      options = c(
+        short_gestation = "Tienen un periodo de gestacion inusualmente corto.",
+        fetal_phys = "Su desarrollo y fisiologia fetal permiten estudiar el embarazo e intervenciones en ninos prematuros.",
+        monogastric_model = "Son monogastricas y por lo tanto se asemejan estrechamente a la digestion humana.",
+        polyclonal_abs = "Producen grandes cantidades de anticuerpos policlonales."
+      ),
+      answer = "fetal_phys",
+      explanation = "La fisiologia fetal ovina permite procedimientos quirurgicos in utero y modelar el desarrollo respiratorio humano."
+    ),
+    list(
+      id = "goat_biomedical",
+      question = "Que caracteristica hace que las cabras sean particularmente utiles para la biofarmacia (biopharming)?",
+      options = c(
+        rumen_proteins = "Su rumen produce proteinas terapeuticas durante la fermentacion.",
+        milk_proteins = "Su leche se puede utilizar para producir proteinas terapeuticas recombinantes.",
+        brain_anatomy = "La anatomia de su cerebro se asemeja estrechamente al cerebro humano.",
+        gi_antibodies = "Su tubo digestivo permite la produccion directa de anticuerpos humanos."
+      ),
+      answer = "milk_proteins",
+      explanation = "Las cabras transgenicas pueden secretar proteinas terapeuticas humanas (como la antitrombina) directamente en su leche con altos rendimientos."
     )
   ),
   pt = list(
@@ -68,6 +202,73 @@ quiz_data_by_lang <- list(
       options = c(rumen = "Rumen", reticulum = "Reticulo", omasum = "Omaso", abomasum = "Abomaso"),
       answer = "abomasum",
       explanation = "O abomaso secreta enzimas digestivas e acido cloridrico, por isso e o estomago glandular mais comparavel ao nosso."
+    ),
+    list(
+      id = "rumen_fermentation",
+      question = "Qual compartimento e o principal local de fermentacao microbiana nos ruminantes?",
+      options = c(abomasum = "Abomaso", rumen = "Rumen", omasum = "Omaso", small_intestine = "Intestino delgado"),
+      answer = "rumen",
+      explanation = "O rumen abriga bilhoes de microbios simbioticos que descompõem carboidratos complexos de plantas como a celulose por fermentacao."
+    ),
+    list(
+      id = "pig_digestion",
+      question = "Qual afirmacao melhor distingue o sistema digestivo do porco do sistema digestivo dos ruminantes?",
+      options = c(
+        four_stomachs = "Os porcos possuem quatro compartimentos estomacais especializados.",
+        rumen_fiber = "Os porcos dependem principalmente de microorganismos do rumen para digerir fibra.",
+        monogastric = "Os porcos possuem um estomago simples de uma camara e dependem da digestao enzimatica.",
+        large_intestine = "Os porcos absorvem a maioria dos nutrientes no intestino grosso."
+      ),
+      answer = "monogastric",
+      explanation = "Como monogastricos nao ruminantes, os porcos digerem alimentos usando acido gastrico e enzimas digestivas em um estomago simples."
+    ),
+    list(
+      id = "abomasum_function",
+      question = "Qual e a principal funcao do abomaso?",
+      options = c(
+        fermentation = "Fermentacao microbiana da fibra vegetal",
+        water_abs = "Absorcao de agua e minerais",
+        enzyme_sec = "Secrecao de acido gastrico e enzimas para digestao de proteinas",
+        regurgitation = "Regurgitacao do alimento de volta a boca"
+      ),
+      answer = "enzyme_sec",
+      explanation = "O abomaso funciona como o estomago glandular onde acido e pepsina descompõem proteinas e microbios vindos do rumen."
+    ),
+    list(
+      id = "pig_biomedical",
+      question = "Qual caracteristica torna os porcos particularmente uteis em pesquisas de xenotransplante?",
+      options = c(
+        similar_organs = "Seus orgaos possuem similaridades anatomicas e fisiologicas com os orgaos humanos.",
+        human_abs = "Eles produzem naturalmente anticorpos totalmente humanos.",
+        four_chamber = "Seu estomago de quatro camaras se assemelha ao sistema digestivo humano.",
+        small_brain = "Seu cerebro e consideravelmente menor do que o de outros animais de laboratorio."
+      ),
+      answer = "similar_organs",
+      explanation = "Os orgaos suinos (como coracao e rins) correspondem de perto aos orgaos humanos em tamanho, estrutura e funcao fisiologica."
+    ),
+    list(
+      id = "sheep_biomedical",
+      question = "Por que as ovelhas sao modelos uteis para a medicina prenatal e materna?",
+      options = c(
+        short_gestation = "Elas tem um periodo de gestacao incomumente curto.",
+        fetal_phys = "Seu desenvolvimento e fisiologia fetal permitem estudos de gravidez e intervencoes em recem-nascidos prematuros.",
+        monogastric_model = "Elas sao monogastricas e, portanto, se assemelham a digestao humana.",
+        polyclonal_abs = "Elas produzem grandes quantidades de anticorpos policlonais."
+      ),
+      answer = "fetal_phys",
+      explanation = "A fisiologia fetal ovina permite procedimentos cirurgicos in utero e modelagem do desenvolvimento respiratorio humano."
+    ),
+    list(
+      id = "goat_biomedical",
+      question = "Qual caracteristica torna as cabras particularmente uteis para a biofarmacia (biopharming)?",
+      options = c(
+        rumen_proteins = "Seu rumen produz proteinas terapeuticas durante a fermentacao.",
+        milk_proteins = "Seu leite pode ser usado para produzir proteinas terapeuticas recombinantes.",
+        brain_anatomy = "A anatomia do seu cerebro se assemelha de perto ao cerebro humano.",
+        gi_antibodies = "Seu trato gastrointestinal permite a producao direta de anticorpos humanos."
+      ),
+      answer = "milk_proteins",
+      explanation = "Cabras transgenicas podem secretar proteinas terapeuticas humanas (como a antitrombina) diretamente no leite com altos rendimentos."
     )
   )
 )
