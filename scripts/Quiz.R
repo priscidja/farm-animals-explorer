@@ -15,6 +15,20 @@ global_leaderboard <- reactiveVal(
 quiz_data_by_lang <- list(
   en = list(
     list(
+      id = "sheep_terminology",
+      question = "Do you know the biological relationship between a lamb, a ewe, and a ram?",
+      options = c(yes = "Yes", no = "No"),
+      answer = "yes",
+      explanation = "🐑 Lamb = young sheep | ♀️ Ewe = adult female sheep | ♂️ Ram = adult male sheep"
+    ),
+    list(
+      id = "goat_terminology",
+      question = "Do you know the biological relationship between a kid, a doe, and a buck?",
+      options = c(yes = "Yes", no = "No"),
+      answer = "yes",
+      explanation = "🐐 Kid = young goat | ♀️ Doe = adult female goat | ♂️ Buck = adult male goat"
+    ),
+    list(
       id = "chromosome_count",
       question = "Which livestock species has the lowest diploid chromosome count (2n = 38)?",
       options = c(pig = "Pig (Sus scrofa)", goat = "Goat (Capra hircus)", cattle = "Cattle (Bos taurus)", sheep = "Sheep (Ovis aries)"),
@@ -105,6 +119,20 @@ quiz_data_by_lang <- list(
   ),
   es = list(
     list(
+      id = "sheep_terminology",
+      question = "¿Conoces la relacion biologica entre un cordero, una oveja y un carnero?",
+      options = c(yes = "Si", no = "No"),
+      answer = "yes",
+      explanation = "🐑 Cordero = oveja joven | ♀️ Oveja = hembra adulta | ♂️ Carnero = macho adulto"
+    ),
+    list(
+      id = "goat_terminology",
+      question = "¿Conoces la relacion biologica entre un cabrito, una cabra y un macho cabrio?",
+      options = c(yes = "Si", no = "No"),
+      answer = "yes",
+      explanation = "🐐 Cabrito = cabra joven | ♀️ Cabra = hembra adulta | ♂️ Macho cabrio = macho adulto"
+    ),
+    list(
       id = "chromosome_count",
       question = "Que especie ganadera tiene el menor numero diploide de cromosomas (2n = 38)?",
       options = c(pig = "Cerdo (Sus scrofa)", goat = "Cabra (Capra hircus)", cattle = "Bovino (Bos taurus)", sheep = "Oveja (Ovis aries)"),
@@ -194,6 +222,20 @@ quiz_data_by_lang <- list(
     )
   ),
   pt = list(
+    list(
+      id = "sheep_terminology",
+      question = "Voce conhece a relacao biologica entre um cordeiro, uma ovelha e um carneiro?",
+      options = c(yes = "Sim", no = "Nao"),
+      answer = "yes",
+      explanation = "🐑 Cordeiro = ovelha jovem | ♀️ Ovelha = fêmea adulta | ♂️ Carneiro = macho adulto"
+    ),
+    list(
+      id = "goat_terminology",
+      question = "Voce conhece a relacao biologica entre um cabrito, uma cabra e um bode?",
+      options = c(yes = "Sim", no = "Nao"),
+      answer = "yes",
+      explanation = "🐐 Cabrito = cabra jovem | ♀️ Cabra = fêmea adulta | ♂️ Bode = macho adulto"
+    ),
     list(
       id = "chromosome_count",
       question = "Qual especie de producao tem o menor numero diploide de cromossomos (2n = 38)?",
